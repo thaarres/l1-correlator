@@ -205,21 +205,26 @@ sudo chmod 777 /dev/xdma0_c2h_0 /dev/xdma0_h2c_0
 c=/afs/cern.ch/work/s/ssummers/public/c-v0.3.6.xml
 ```
 pass input
-`file=source.txt`
-
+```python
+file=source.txt`
+```
 Reset the firmware (just clears some registers)
-`empbutler -c $c do vcu118 reset internal`
-
+```python
+empbutler -c $c do vcu118 reset internal`
+```
 Configure the rx (receiver) buffers of links 0-9 in 'PlayOnce' mode.
 The file $file is written (over IPBus over PCIe) into buffers (memories) next to each receiver link.
-`empbutler -c $c do vcu118 buffers rx PlayOnce -c 0-9 --inject file://$file`
-
+```python
+empbutler -c $c do vcu118 buffers rx PlayOnce -c 0-9 --inject file://$file`
+```
 Configure the tx (transmit) buffer of link 0 to Capture. The algorithm only outputs to one link
-`empbutler -c $c do vcu118 buffers tx Capture -c 0`
-
+```python
+empbutler -c $c do vcu118 buffers tx Capture -c 0`
+```
 Play the data from rx buffer, through algorithm, to tx buffer
-`empbutler -c $c do vcu118 capture --rx 0-9 --tx 0`
-
+```python
+empbutler -c $c do vcu118 capture --rx 0-9 --tx 0`
+```
 
 The following versions of libraries are used in this work:
 
