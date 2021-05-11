@@ -1,0 +1,4 @@
+include -c correlator-common:jetmet/htmht/htmht htmht.dep
+include -c emp-fwk:boards/vcu118 vcu118.dep
+src vcu118_decl_full.vhd
+src emp_payload.vhd
