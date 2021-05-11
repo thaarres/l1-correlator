@@ -1,4 +1,4 @@
-#Project structure for L1 correlator work
+##Project structure for L1 correlator work
 
 
 Step 1) Produce Vivado project
@@ -80,13 +80,15 @@ And then the *.dep contents is:
 Setup ipbb
 
 Use 2021b, latest version which work
-
+```python
 curl -L https://github.com/ipbus/ipbb/archive/dev/2021b.tar.gz | tar xvz
 conda activate EMP
 source ipbb-dev-2021b/env.sh
-
+```
 To run the ``ipbus gendecoders`` command later on
+```python
 export PATH=/opt/cactus/bin/uhal/tools:$PATH LD_LIBRARY_PATH=/opt/cactus/lib:$LD_LIBRARY_PATH
+```
 ```python
 ipbb init algo-work
 cd algo-work
@@ -120,31 +122,47 @@ Your folder structure should look like
 ### Prepare implementation of full board setup
 
 Make repositories
-`mkdir correlator-layer2/ht/firmware/{hdl,cfg}`
-
+```python
+mkdir correlator-layer2/ht/firmware/{hdl,cfg}`
+```python
 and copy
-`emp-fwk/components/payload/firmware/hdl/emp_payload.vhd`
+```python
+emp-fwk/components/payload/firmware/hdl/emp_payload.vhd
+```python
 into
+```python
 `correlatory-layer2/ht/firmware/hdl`
-
-`ipbb proj create vivado htmhtv2 correlator-layer2:htmht`
+```
+Do
+```python
+ipbb proj create vivado htmhtv2 correlator-layer2:htmht
+```
 Copy
-`emp-fwk/projects/examples/vcu118/firmware/hdl/emp_project_decl_full`
+```python
+emp-fwk/projects/examples/vcu118/firmware/hdl/emp_project_decl_full`
+```
 into
-`correlator-layer2/htmht/firmware/cfg/`
+```python
+correlator-layer2/htmht/firmware/cfg/
+```
 Edit the file to some unique 
-`constant PAYLOAD_REV : std_logic_vector(31 downto 0) := X"12345678"`
-e.g
-`constant PAYLOAD_REV : std_logic_vector(31 downto 0) := X"7EA00000"`
+```python
+`constant PAYLOAD_REV : std_logic_vector(31 downto 0) := X"12345678" #e.g
+`constant PAYLOAD_REV : std_logic_vector(31 downto 0) := X"7EA00000"
+```
 
 Edit
-`correlator-layer2/htmht/firmware/cfg/top.dep`
+```python
+correlator-layer2/htmht/firmware/cfg/top.dep
+```
 to include `emp_project_decl_full`
 
-Edit the
-`correlator-layer2/htmht/firmware/hdl/emp_payload.vhd`
+Edit 
+```python
+correlator-layer2/htmht/firmware/hdl/emp_payload.vhd
+```
 
-structure to have the right input and outputs
+to have the right input and outputs
 !! Important remember to set `q(0).strobe <= '1';` in the end!!
 
 Make a top.dep file
@@ -154,9 +172,9 @@ include -c correlator-common:jetmet/htmht/htmht htmht.dep
 include -c emp-fwk:boards/vcu118 vcu118.dep
 src vcu118_decl_full.vhd
 src emp_payload.vhd
-```p
+```
 
-Synthesise!
+Synthesise and implement!
 ```python
 ipbb ipbus gendecoders
 ipbb vivado generate-project
@@ -177,6 +195,7 @@ export PATH=$PATH:/home/ssummers/emp-sw-containers/0.5.2/
 
 cp /afs/cern.ch/work/s/ssummers/public/program-bit.tcl .
 ```
+
 edit `program-bit.tcl` and change `PROGRAM.FILE` into `proj/htmht/package/src/<myproject>.bit`
 ```python
 vivado_lab -mode batch -source program-bit.tcl 
