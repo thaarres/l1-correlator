@@ -1,4 +1,4 @@
-##Project structure for L1 correlator work
+# Project structure for L1 correlator work
 
 
 Step 1) Produce Vivado project
@@ -59,19 +59,19 @@ That should result in the following structure
 ```
 
 For ipbb it always needs to end in firmware/hdl/file.vhd or firmware/cfg/file.dep
-And then the *.dep contents is:
+And then the `*.dep` content is:
 ```python
-│   ├── src ht_compute.vhd
-│   ├── src sqrt_fixed_23_19_s.vhd
-│   ├── src mht_compute_lut.vhd
-│   ├── src algo_main.vhd
-│   ├── src algo_main_mul_muldEe.vhd
-│   ├── src algo_main_mac_muleOg.vhd
-│   ├── src algo_main_mul_mulfYi.vhd
-│   ├── src algo_main_mac_mulg8j.vhd
-│   ├── src mht_compute_lut_sbkb.vhd
-│   ├── src mht_compute_lut_ccud.vhd
-```python
+src ht_compute.vhd
+src sqrt_fixed_23_19_s.vhd
+src mht_compute_lut.vhd
+src algo_main.vhd
+src algo_main_mul_muldEe.vhd
+src algo_main_mac_muleOg.vhd
+src algo_main_mul_mulfYi.vhd
+src algo_main_mac_mulg8j.vhd
+src mht_compute_lut_sbkb.vhd
+src mht_compute_lut_ccud.vhd
+```
 
 
 ### Step 2) Producing a bit-file using emp-fwk
@@ -124,11 +124,11 @@ Your folder structure should look like
 Make repositories
 ```python
 mkdir correlator-layer2/ht/firmware/{hdl,cfg}`
-```python
+```
 and copy
 ```python
 emp-fwk/components/payload/firmware/hdl/emp_payload.vhd
-```python
+```
 into
 ```python
 `correlatory-layer2/ht/firmware/hdl`
@@ -145,7 +145,7 @@ into
 ```python
 correlator-layer2/htmht/firmware/cfg/
 ```
-Edit the file to some unique 
+Edit the file to some unique payload ID
 ```python
 `constant PAYLOAD_REV : std_logic_vector(31 downto 0) := X"12345678" #e.g
 `constant PAYLOAD_REV : std_logic_vector(31 downto 0) := X"7EA00000"
@@ -155,7 +155,7 @@ Edit
 ```python
 correlator-layer2/htmht/firmware/cfg/top.dep
 ```
-to include `emp_project_decl_full`
+to include the `emp_project_decl_full` file
 
 Edit 
 ```python
